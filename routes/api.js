@@ -6,7 +6,6 @@
 *
 */
 
-'use strict';
 
 const expect = require('chai').expect;
 const ConvertHandler = require('../controllers/convertHandler.js');
@@ -22,7 +21,7 @@ module.exports = (app) => {
          const initNum = convertHandler.getNum(input);
          const initUnit = convertHandler.getUnit(input);
 
-         if (!initNum) { inputErrors.push('invalid number') }
+         if (initNum === 'invalid number') { inputErrors.push(initNum) }
          if (initUnit === 'invalid unit') { inputErrors.push(initUnit) }
          if (inputErrors.length > 0) {
             return res.json(
