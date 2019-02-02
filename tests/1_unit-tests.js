@@ -22,7 +22,7 @@ suite('Unit Tests', function(){
     });
     
     test('Decimal Input', function(done) {
-      const input = '3.2L';
+      const input = '3.2kg';
       assert.equal(convertHandler.getNum(input), 3.2);
       done();
     });
@@ -35,13 +35,13 @@ suite('Unit Tests', function(){
     
     test('Fractional Input w/ Decimal', function(done) {
       const input = '32.6/16.2L';
-      assert.equal(convertHandler.getNum(input), 2);
+      assert.approximately(convertHandler.getNum(input), 2, 0.1);
       done();
     });
     
     test('Invalid Input (double fraction)', function(done) {
       const input = '3/2/1L';
-      assert.equal(convertHandler.getNum(input), 'invalid unit');
+      assert.equal(convertHandler.getNum(input), 'invalid number');
       done();
     });
     
@@ -58,7 +58,8 @@ suite('Unit Tests', function(){
     test('For Each Valid Unit Inputs', function(done) {
       const input = ['gal','l','mi','km','lbs','kg','GAL','L','MI','KM','LBS','KG'];
       input.forEach(function(ele, index) {
-        assert.equal(convertHandler.getUnit(ele), input[index])
+        const outEle = input[index].toLowerCase() 
+        assert.equal(convertHandler.getUnit(ele), outEle === 'l' ?  'L' : outEle)
       });
       done();
     });
@@ -74,8 +75,8 @@ suite('Unit Tests', function(){
   suite('Function convertHandler.getReturnUnit(initUnit)', function() {
     
     test('For Each Valid Unit Inputs', function(done) {
-      const input = ['gal','l','mi','km','lbs','kg'];
-      const expect = ['l','gal','km','mi','kg','lbs'];
+      const input = ['gal','L','mi','km','lbs','kg'];
+      const expect = ['L','gal','km','mi','kg','lbs'];
       input.forEach(function(ele, i) {
         assert.equal(convertHandler.getReturnUnit(ele), expect[i]);
       });
@@ -88,8 +89,8 @@ suite('Unit Tests', function(){
     
     test('For Each Valid Unit Inputs', function(done) {
       //see above example for hint
-      const input = ['gal','l','mi','km','lbs','kg'];
-      const expect = ['gallons', 'liter', 'miles', 'kilometers', 'pounds', 'kilograms']
+      const input = ['gal','L','mi','km','lbs','kg'];
+      const expect = ['gallons', 'liters', 'miles', 'kilometers', 'pounds', 'kilograms']
       input.forEach((ele, i) => {
          assert.equal(convertHandler.spellOutUnit(ele), expect[i])
       })
