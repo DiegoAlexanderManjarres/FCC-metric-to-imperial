@@ -34,8 +34,8 @@ suite('Unit Tests', function(){
     });
     
     test('Fractional Input w/ Decimal', function(done) {
-      const input = '32.6/16.2L';
-      assert.approximately(convertHandler.getNum(input), 2, 0.1);
+      const input = '9/4.5L';
+      assert.equal(convertHandler.getNum(input), 2);
       done();
     });
     
