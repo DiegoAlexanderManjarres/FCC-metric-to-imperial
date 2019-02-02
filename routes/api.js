@@ -24,7 +24,7 @@ module.exports = (app) => {
          if (initNum === 'invalid number') { inputErrors.push(initNum) }
          if (initUnit === 'invalid unit') { inputErrors.push(initUnit) }
          if (inputErrors.length > 0) {
-            return res.json(
+            return res.status(200).type('text').send(
                inputErrors.length > 1 ? 'invalid number and unit' : inputErrors[0]
                )
          }
